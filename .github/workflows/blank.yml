@@ -1,0 +1,24 @@
+
+name: Test SSH Connection
+
+on:
+  push:
+    branches: [ "main" ]
+	workflow_dispatch: # <--- Thêm dòng này vào để chạy manual
+
+jobs:
+  test-ssh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Thử kết nối vào Server Linux
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          script: |
+            echo "=========================================="
+            echo "🎉 KẾT NỐI SSH TỪ GITHUB ACTIONS THÀNH CÔNG!"
+            echo "Tôi đang đứng ở thư mục: $(pwd)"
+            echo "Tài khoản đang đăng nhập là: $(whoami)"
+            echo "=========================================="
